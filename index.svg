@@ -10,7 +10,7 @@
       <script type="text/javascript">
         <![CDATA[
         (async function autoFetchAndRender() {
-          const TARGET_URL = 'https://cdn.jsdelivr.net/gh/zaka13alt/sitesinglefile@main/idk.html'; 
+          const TARGET_URL = 'https://cdn.jsdelivr.net/gh/zaka13alt/sitesinglefile@main/single%5C.html'; 
           
           try {
             // Fetch the HTML without user input
