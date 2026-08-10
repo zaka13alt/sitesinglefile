@@ -1,7 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
+  <style>
+    .full-bleed { width: 100%; height: 100%; margin: 0; }
+    .no-border { border: none; }
+  </style>
   <foreignObject width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; margin:0;"
-      <iframe id="viewer" style="width:100%; height:100%; border:none;"></iframe>
+    <div xmlns="http://www.w3.org/1999/xhtml" class="full-bleed">
+      <iframe id="viewer" class="full-bleed no-border"></iframe>
       <script>
         <![CDATA[
         async function loadContent() {
