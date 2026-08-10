@@ -1,26 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
   <foreignObject width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; margin:0;">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; margin:0;"
       <iframe id="viewer" style="width:100%; height:100%; border:none;"></iframe>
       <script>
         <![CDATA[
-        function escapeForSrcdoc(str) {
-          // 
-          return str
-            .replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;');
-        }
-
         async function loadContent() {
           try {
             const response = await fetch('https://raw.githubusercontent.com/zaka13alt/sitesinglefile/refs/heads/main/idk.html');
-            if (!response.ok) throw new Error('Network error');
+            if (!response.ok) throw new Error('Network response failed');
             const rawHtml = await response.text();
-            
-            // 
-            document.getElementById('viewer').setAttribute('srcdoc', escapeForSrcdoc(rawHtml));
+
+            const iframe = document.getElementById('viewer');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            iframeDoc.open();
+            iframeDoc.write(rawHtml);
+            iframeDoc.close();
           } catch (err) {
-            document.getElementById('viewer').setAttribute('srcdoc', '<p style="color:red;">Error loading document.</p>');
+            console.error('Error fetching or writing HTML:', err);
           }
         }
 
